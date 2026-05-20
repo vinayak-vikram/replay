@@ -17,6 +17,8 @@ struct PracticeView: View {
 
                 statusLabel
 
+                levelMeter
+
                 Spacer()
 
                 mainButton
@@ -58,6 +60,21 @@ struct PracticeView: View {
         }
         .font(.headline)
         .animation(.default, value: audio.state)
+    }
+
+    private var levelMeter: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .bottom) {
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(.quaternary)
+
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(audio.state == .recording ? Color.red.opacity(0.8) : Color.blue.opacity(0.5))
+                    .frame(height: geo.size.height * CGFloat(audio.inputLevel))
+                    .animation(.linear(duration: 0.05), value: audio.inputLevel)
+            }
+        }
+        .frame(width: 48, height: 200)
     }
 
     private var mainButton: some View {
