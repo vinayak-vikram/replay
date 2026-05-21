@@ -51,7 +51,7 @@ struct PracticeView: View {
                 Text(audio.lastRecordingURL != nil ? "Ready" : "Tap to start recording")
                     .foregroundStyle(.secondary)
             case .recording:
-                Text("Recording…")
+                Text(audio.detectorArmed ? "Listening for pause…" : "Waiting for you to start playing…")
                     .foregroundStyle(.red)
             case .playing:
                 Text("Playing back…")
